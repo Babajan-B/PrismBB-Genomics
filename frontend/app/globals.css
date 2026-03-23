@@ -1,0 +1,514 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Franklin / Genoox Design System ────────────────────────────────────────
+   Color palette reverse-engineered from franklin.genoox.com
+   Primary brand: Deep Navy header + Clinical Blue actions + light grey pages
+   ─────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Page structure ─── */
+  --bg:              #F9FAFB;   /* page canvas, very light grey */
+  --bg-alt:          #F2F4F7;   /* slightly darker grey for insets */
+  --surface:         #FFFFFF;   /* card / panel backgrounds */
+  --surface-2:       #F9FAFB;   /* muted surface for table rows etc */
+
+  /* ── Nav / header bar ──  */
+  --nav:             #101828;   /* Franklin deep navy */
+  --nav-text:        #FFFFFF;
+  --nav-sub:         rgba(255,255,255,0.5);
+  --nav-hover:       rgba(255,255,255,0.08);
+  --nav-active:      #2E90FA;   /* underline indicator on active nav item */
+
+  /* ── Text hierarchy ── */
+  --text:            #101828;   /* primary text */
+  --text-2:          #475467;   /* secondary text */
+  --text-3:          #98A2B3;   /* muted / helper text */
+  --text-inv:        #FFFFFF;
+
+  /* ── Borders ── */
+  --border:          #EAECF0;   /* default 1px borders */
+  --border-strong:   #D0D5DD;
+
+  /* ── Brand / action blue ── */
+  --blue:            #2E90FA;
+  --blue-dark:       #1570EF;
+  --blue-dim:        rgba(46, 144, 250, 0.08);
+  --blue-border:     rgba(46, 144, 250, 0.25);
+
+  /* ── Semantic: Pathogenic / critical red ── */
+  --red:             #F04438;
+  --red-dim:         rgba(240, 68, 56, 0.08);
+  --red-border:      rgba(240, 68, 56, 0.22);
+
+  /* ── Semantic: Likely-Pathogenic amber ── */
+  --amber:           #F79009;
+  --amber-dim:       rgba(247, 144, 9, 0.08);
+  --amber-border:    rgba(247, 144, 9, 0.22);
+
+  /* ── Semantic: Benign / success green ── */
+  --green:           #12B76A;
+  --green-dim:       rgba(18, 183, 106, 0.08);
+  --green-border:    rgba(18, 183, 106, 0.22);
+
+  /* ── Semantic VUS / neutral grey ── */
+  --vus:             #667085;
+  --vus-dim:         rgba(102,112,133,0.08);
+  --vus-border:      rgba(102,112,133,0.20);
+
+  /* ── Purple (PrismBB accent) ── */
+  --purple:          #7F56D9;
+  --purple-dim:      rgba(127, 86, 217, 0.08);
+  --purple-border:   rgba(127, 86, 217, 0.22);
+
+  /* ── Misc ── */
+  --radius-sm:   6px;
+  --radius:      8px;
+  --radius-md:   10px;
+  --radius-lg:   12px;
+  --shadow-xs:   0 1px 2px rgba(16,24,40,0.05);
+  --shadow-sm:   0 1px 3px rgba(16,24,40,0.10), 0 1px 2px rgba(16,24,40,0.06);
+  --shadow:      0 4px 6px -1px rgba(16,24,40,0.08), 0 2px 4px -1px rgba(16,24,40,0.04);
+  --shadow-md:   0 8px 16px rgba(16,24,40,0.06);
+}
+
+/* ─── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--blue-dim); color: var(--blue-dark); }
+
+/* ─── Typography helpers ─────────────────────────────────────────────────── */
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--blue);
+  margin: 0;
+}
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 4px 0 0;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.section-sub {
+  font-size: 14px;
+  color: var(--text-2);
+  margin: 6px 0 0;
+}
+
+/* ─── Franklin-style Top Navigation Bar ─────────────────────────────────── */
+.franklin-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 56px;
+  background: var(--nav);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+}
+.franklin-nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 32px;
+  text-decoration: none;
+}
+.franklin-nav-logo-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #2E90FA 0%, #0E4FF1 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: -0.04em;
+  flex-shrink: 0;
+}
+.franklin-nav-wordmark {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.franklin-nav-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.02em;
+}
+.franklin-nav-sub {
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--nav-sub);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+.franklin-nav-links {
+  display: flex;
+  align-items: stretch;
+  height: 56px;
+  gap: 0;
+  flex: 1;
+}
+.franklin-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--nav-sub);
+  text-decoration: none;
+  transition: color 0.15s;
+  position: relative;
+  border-bottom: 2px solid transparent;
+  letter-spacing: 0.01em;
+}
+.franklin-nav-link:hover {
+  color: white;
+  background: var(--nav-hover);
+}
+.franklin-nav-link.active {
+  color: white;
+  border-bottom-color: var(--nav-active);
+}
+.franklin-nav-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ─── Page layout ─────────────────────────────────────────────── */
+.page-layout {
+  min-height: calc(100vh - 56px);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 24px;
+}
+
+/* ─── Cards ──────────────────────────────────────────────────────────────── */
+.clinical-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  overflow: hidden;
+}
+.clinical-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.clinical-card-body {
+  padding: 18px 20px;
+}
+/* alias */
+.glass-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-xs); overflow: hidden; }
+.elevated-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); }
+
+/* ─── Buttons ────────────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  background: var(--blue);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(16,24,40,0.15);
+}
+.btn-primary:hover  { background: var(--blue-dark); box-shadow: var(--shadow-sm); }
+.btn-primary:active { transform: translateY(1px); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; background: var(--blue); transform: none; }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid var(--border-strong);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-secondary:hover { background: var(--surface-2); border-color: var(--border-strong); }
+
+/* ─── Stat Cards ────────────────────────────────────────────────────────── */
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-xs);
+}
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-3);
+  margin: 0;
+}
+.stat-value {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 6px 0 0;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* ─── Filter Tabs (Franklin horizontal underline style) ─────────────────── */
+.filter-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+.filter-tab {
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-3);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  margin-bottom: -1px;
+  white-space: nowrap;
+}
+.filter-tab:hover { color: var(--text); }
+.filter-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+
+/* ─── Job / Case row cards ──────────────────────────────────────────────── */
+.job-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  text-decoration: none;
+  transition: background 0.1s;
+  position: relative;
+  cursor: pointer;
+}
+.job-card:last-child { border-bottom: none; }
+.job-card:hover { background: var(--surface-2); }
+.job-card-status-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+}
+
+/* ─── Icon boxes ────────────────────────────────────────────────────────── */
+.icon-box {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.icon-box-primary { background: var(--blue-dim); border: 1px solid var(--blue-border); color: var(--blue); }
+.icon-box-success { background: var(--green-dim); border: 1px solid var(--green-border); color: var(--green); }
+.icon-box-error   { background: var(--red-dim);   border: 1px solid var(--red-border);   color: var(--red); }
+.icon-box-amber   { background: var(--amber-dim); border: 1px solid var(--amber-border); color: var(--amber); }
+.icon-box-purple  { background: var(--purple-dim); border: 1px solid var(--purple-border); color: var(--purple); }
+
+/* ─── Workspace tiles (job overview) ────────────────────────────────────── */
+.workspace-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.1s;
+  box-shadow: var(--shadow-xs);
+}
+.workspace-tile:hover {
+  box-shadow: var(--shadow-sm);
+  background: var(--surface-2);
+}
+
+/* ─── Variant classification badges ─────────────────────────────────────── */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 99px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.04em; white-space: nowrap;
+}
+.badge-path     { background: var(--red-dim);    color: var(--red);    border: 1px solid var(--red-border);   }
+.badge-lpath    { background: var(--amber-dim);  color: var(--amber);  border: 1px solid var(--amber-border); }
+.badge-vus      { background: var(--vus-dim);    color: var(--vus);    border: 1px solid var(--vus-border);   }
+.badge-lbenign  { background: var(--green-dim);  color: var(--green);  border: 1px solid var(--green-border); }
+.badge-benign   { background: var(--green-dim);  color: var(--green);  border: 1px solid var(--green-border); }
+.badge-HIGH     { background: var(--red-dim);    color: var(--red);    border: 1px solid var(--red-border);   }
+.badge-MODERATE { background: var(--amber-dim);  color: var(--amber);  border: 1px solid var(--amber-border); }
+.badge-LOW      { background: var(--blue-dim);   color: var(--blue);   border: 1px solid var(--blue-border);  }
+.badge-MODIFIER { background: var(--vus-dim);    color: var(--vus);    border: 1px solid var(--vus-border);   }
+
+/* ─── Data tables ────────────────────────────────────────────────────────── */
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table thead th {
+  background: var(--surface-2);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-3);
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.data-table tbody td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text);
+  vertical-align: middle;
+}
+.data-table tbody tr { transition: background 0.1s; }
+.data-table tbody tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover td { background: var(--surface-2); }
+
+/* ─── Form inputs ────────────────────────────────────────────────────────── */
+.input-field {
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+.input-field:hover  { border-color: #98A2B3; }
+.input-field:focus  { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-dim); }
+.input-field::placeholder { color: var(--text-3); }
+
+/* ─── Pipeline step connector ──────────────────────────────────────────── */
+.pipeline-connector {
+  flex: 1;
+  height: 2px;
+  background: var(--border);
+  margin: 0 6px;
+  margin-bottom: 20px;
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+/* ─── Chat bubbles ──────────────────────────────────────────────────────── */
+.chat-bubble-user {
+  background: var(--blue);
+  color: #fff;
+  border-radius: 14px 14px 2px 14px;
+  padding: 10px 14px;
+  font-size: 14px;
+  max-width: 78%;
+  align-self: flex-end;
+  line-height: 1.5;
+}
+.chat-bubble-agent {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px 14px 14px 2px;
+  padding: 12px 16px;
+  font-size: 14px;
+  max-width: 82%;
+  align-self: flex-start;
+  line-height: 1.6;
+  box-shadow: var(--shadow-xs);
+}
+
+/* ─── Variant classification spectrum bar (Franklin signature) ───────────── */
+.classification-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #12B76A 0%, #F79009 50%, #F04438 100%);
+  position: relative;
+}
+.classification-pointer {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--text);
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+@keyframes spin  { to { transform: rotate(360deg); } }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-slow { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+.animate-spin     { animation: spin 0.8s linear infinite; }
+.animate-fade-in  { animation: fadeIn 0.3s ease both; }
+.animate-pulse-slow { animation: pulse-slow 2.5s ease-in-out infinite; }
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #98A2B3; }
